@@ -16,20 +16,16 @@ export default async function Home() {
             key={post.id}
             className="border-2 border-black p-6 rounded-lg w-[600px] mx-auto"
           >
-            {/* Post Title */}
             <h2 className="text-xl font-semibold text-gray-900">
               {post.title}
             </h2>
 
-            {/* Language */}
             <p className="text-sm text-gray-600">{post.language}</p>
 
-            {/* Text Box */}
             <div className="mt-4">
               <p className="text-gray-800">{post.text}</p>
             </div>
 
-            {/* Image Box */}
             {post.image_url && (
               <div className="mt-4">
                 <img
