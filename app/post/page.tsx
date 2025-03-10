@@ -14,12 +14,24 @@ const PostCreate = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const userid = session?.user?.id;
+
+    console.log("User ID:", userid);
+
+    if (!userid) {
+      return setError("User not logged in.");
+    }
+
     const validation = postRegister.safeParse({
       title,
       language,
       text,
       image_url,
     });
+    console.log("title:", title);
+    console.log("language:", language);
+    console.log("text:", text);
+    console.log("image", image_url);
 
     if (!validation.success) {
       const errorMessages = validation.error.errors
@@ -37,12 +49,44 @@ const PostCreate = () => {
     const res = await fetch("/api/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, language, text, image_url, userId }),
+      body: JSON.stringify({
+        userId: userid,
+        language,
+        title,
+        text,
+        image_url: image_url ? image_url : "",
+      }),
     });
 
+    const responseText = await res.text();
+    console.log("Raw API Response:", responseText);
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (error) {
+      console.error("Failed to parse response as JSON:", responseText);
+      return window.alert(
+        "Post creation failed. Error: Invalid JSON response."
+      );
+    }
+
+    console.log("Parsed API Response:", result);
+
     if (res.ok) {
+      window.alert("POST CREATED");
     } else {
-      setError("Post creation failed.");
+      console.error("Error response:", result);
+
+      // Extract error message safely
+      const errorMessage =
+        result?.error?.message ||
+        result?.error ||
+        result?.details ||
+        "An unknown error occurred.";
+
+      window.alert(`Post creation failed. Error: ${errorMessage}`);
+      setError(errorMessage);
     }
   };
 

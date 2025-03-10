@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         language: body.language,
         title: body.title,
         text: body.text,
-        image_url: body.image_url,
+        image_url: body.image_url || null,
       },
     });
 
