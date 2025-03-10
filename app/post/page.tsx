@@ -58,7 +58,6 @@ const PostCreate = () => {
       }),
     });
 
-    // Read response body as text to avoid potential JSON parsing errors
     const responseText = await res.text();
     console.log("Raw API Response:", responseText);
 
