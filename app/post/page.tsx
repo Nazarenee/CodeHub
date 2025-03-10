@@ -58,6 +58,7 @@ const PostCreate = () => {
       }),
     });
 
+    console.log("lol");
     const responseText = await res.text();
     console.log("Raw API Response:", responseText);
 
