@@ -44,6 +44,10 @@ const NavBar = () => {
         )}
 
         {status === "authenticated" && (
+          <Link href="/user/settings">Profile</Link>
+        )}
+
+        {status === "authenticated" && (
           <Link href="/api/auth/signout">Log out</Link>
         )}
       </div>

@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import schema from "../api/user/register/schema";
+import Link from "next/link";
 
-const registerPage = () => {
+const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -64,9 +65,7 @@ const registerPage = () => {
           </button>
         </form>
         <div className="mt-4 text-center">
-          <a href="/api/auth/signin" className="text-blue-500 hover:underline">
-            Sign in
-          </a>
+          <Link href="/api/auth/signin/">Sign In</Link>
         </div>
         {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
       </div>
@@ -74,4 +73,4 @@ const registerPage = () => {
   );
 };
 
-export default registerPage;
+export default RegisterPage;
